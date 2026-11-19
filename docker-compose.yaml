@@ -1,0 +1,169 @@
+
+services:
+
+  # Eureka Server
+  service-discovery:
+    build: ./service-discovery
+    container_name: cartify-eureka
+    restart: unless-stopped
+    ports:
+      - "8761:8761"
+
+  # User Service
+  user-service:
+    build: ./user-service
+    container_name: cartify-user
+    restart: unless-stopped
+    environment:
+      SPRING_DATASOURCE_URL: "jdbc:mysql://host.docker.internal:3306/cartify_user_db"
+      SPRING_DATASOURCE_USERNAME: ${DB_USERNAME}
+      SPRING_DATASOURCE_PASSWORD: ${DB_PASSWORD}
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: "http://service-discovery:8761/eureka/"
+      INTERNAL_API_KEY: ${INTERNAL_API_KEY}
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    depends_on:
+      service-discovery:
+        condition: service_started
+
+  # Auth Service
+  auth-service:
+    build: ./auth-service
+    container_name: cartify-auth
+    restart: unless-stopped
+    environment:
+      SPRING_DATASOURCE_URL: "jdbc:mysql://host.docker.internal:3306/cartify_auth_db"
+      SPRING_DATASOURCE_USERNAME: ${DB_USERNAME}
+      SPRING_DATASOURCE_PASSWORD: ${DB_PASSWORD}
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: "http://service-discovery:8761/eureka/"
+      INTERNAL_API_KEY: ${INTERNAL_API_KEY}
+      JWT_SECRET: ${JWT_SECRET}
+      COOKIE_SECURE: "false"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    depends_on:
+      service-discovery:
+        condition: service_started
+      user-service:
+        condition: service_started
+
+  # Product Service
+  product-service:
+    build: ./product-service
+    container_name: cartify-product
+    restart: unless-stopped
+    environment:
+      SPRING_DATASOURCE_URL: "jdbc:mysql://host.docker.internal:3306/cartify_product_db"
+      SPRING_DATASOURCE_USERNAME: ${DB_USERNAME}
+      SPRING_DATASOURCE_PASSWORD: ${DB_PASSWORD}
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: "http://service-discovery:8761/eureka/"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    depends_on:
+      service-discovery:
+        condition: service_started
+
+  # Cart Service
+  cart-service:
+    build: ./cart-service
+    container_name: cartify-cart
+    restart: unless-stopped
+    environment:
+      SPRING_DATASOURCE_URL: "jdbc:mysql://host.docker.internal:3306/cartify_cart_db"
+      SPRING_DATASOURCE_USERNAME: ${DB_USERNAME}
+      SPRING_DATASOURCE_PASSWORD: ${DB_PASSWORD}
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: "http://service-discovery:8761/eureka/"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    depends_on:
+      service-discovery:
+        condition: service_started
+
+  # Order Service
+  order-service:
+    build: ./order-service
+    container_name: cartify-order
+    restart: unless-stopped
+    environment:
+      SPRING_DATASOURCE_URL: "jdbc:mysql://host.docker.internal:3306/cartify_order_db"
+      SPRING_DATASOURCE_USERNAME: ${DB_USERNAME}
+      SPRING_DATASOURCE_PASSWORD: ${DB_PASSWORD}
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: "http://service-discovery:8761/eureka/"
+      INTERNAL_API_KEY: ${INTERNAL_API_KEY}
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    depends_on:
+      service-discovery:
+        condition: service_started
+
+  # Payment Service
+  payment-service:
+    build: ./payment-service
+    container_name: cartify-payment
+    restart: unless-stopped
+    environment:
+      SPRING_DATASOURCE_URL: "jdbc:mysql://host.docker.internal:3306/cartify_payment_db"
+      SPRING_DATASOURCE_USERNAME: ${DB_USERNAME}
+      SPRING_DATASOURCE_PASSWORD: ${DB_PASSWORD}
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: "http://service-discovery:8761/eureka/"
+      INTERNAL_API_KEY: ${INTERNAL_API_KEY}
+      RAZORPAY_KEY_ID: ${RAZORPAY_KEY_ID}
+      RAZORPAY_KEY_SECRET: ${RAZORPAY_KEY_SECRET}
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    depends_on:
+      service-discovery:
+        condition: service_started
+
+  # Analytics Service
+  analytics-service:
+    build: ./analytics-service
+    container_name: cartify-analytics
+    restart: unless-stopped
+    environment:
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: "http://service-discovery:8761/eureka/"
+      INTERNAL_API_KEY: ${INTERNAL_API_KEY}
+    depends_on:
+      service-discovery:
+        condition: service_started
+
+  # Admin Service
+  admin-service:
+    build: ./admin-service
+    container_name: cartify-admin
+    restart: unless-stopped
+    environment:
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: "http://service-discovery:8761/eureka/"
+      INTERNAL_API_KEY: ${INTERNAL_API_KEY}
+    depends_on:
+      service-discovery:
+        condition: service_started
+
+  # API Gateway
+  api-gateway:
+    build: ./api-gateway
+    container_name: cartify-gateway
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    environment:
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: "http://service-discovery:8761/eureka/"
+    depends_on:
+      service-discovery:
+        condition: service_started
+      auth-service:
+        condition: service_started
+      user-service:
+        condition: service_started
+      product-service:
+        condition: service_started
+      cart-service:
+        condition: service_started
+      order-service:
+        condition: service_started
+      payment-service:
+        condition: service_started
+      analytics-service:
+        condition: service_started
+      admin-service:
+        condition: service_started

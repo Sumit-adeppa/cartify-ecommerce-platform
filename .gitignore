@@ -1,0 +1,219 @@
+
+# ==========================================
+# Maven / Java / Spring Boot
+# ==========================================
+
+**/target/
+!.mvn/wrapper/maven-wrapper.jar
+
+*.class
+*.log
+hs_err_pid*
+replay_pid*
+
+# Maven Wrapper
+.mvn/wrapper/maven-wrapper.properties
+
+# Keep Maven Wrapper JAR
+!.mvn/wrapper/maven-wrapper.jar
+
+# ==========================================
+# Node.js / React / Vite
+# ==========================================
+
+**/node_modules/
+**/dist/
+**/.vite/
+**/coverage/
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
+
+# ==========================================
+# Environment variables and secrets
+# ==========================================
+
+.env
+.env.*
+!.env.example
+
+# ==========================================
+# IntelliJ IDEA
+# ==========================================
+
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# ==========================================
+# Eclipse / Spring Tool Suite
+# ==========================================
+
+.classpath
+.project
+.settings/
+.apt_generated/
+.factorypath
+.springBeans
+.sts4-cache/
+
+# ==========================================
+# NetBeans
+# ==========================================
+
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+
+# ==========================================
+# Visual Studio Code
+# ==========================================
+
+.vscode/
+
+# ==========================================
+# Gradle / Kotlin
+# ==========================================
+
+.gradle/
+.kotlin/
+build/
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+# ==========================================
+# Operating System
+# ==========================================
+
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# ==========================================
+# Database data and local volumes
+# ==========================================
+
+my-sql-data/
+mysql-data/
+mongo-data/
+postgres/
+postgres-inventory/
+postgres-order/
+mysql_keycloak_data/
+grafana/
+
+# ==========================================
+# Docker
+# ==========================================
+
+*.pid
+*.sock
+
+# ==========================================
+# Temporary files
+# ==========================================
+
+*.tmp
+*.bak
+*.swp
+*.swo
+*~
+
+# ==========================================
+# Application-specific
+# ==========================================
+
+HELP.md
+
+
+target/
+!.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**/target/
+!**/src/test/**/target/
+.kotlin
+
+### IntelliJ IDEA ###
+.idea/modules.xml
+.idea/jarRepositories.xml
+.idea/compiler.xml
+.idea/libraries/
+*.iws
+*.iml
+*.ipr
+
+### Eclipse ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+build/
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+### VS Code ###
+.vscode/
+
+### Mac OS ###
+.DS_Store
+
+# Local environment variables
+.env
+.env.*
+!.env.example
+
+
+HELP.md
+target/
+!.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**/target/
+!**/src/test/**/target/
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+build/
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+### VS Code ###
+.vscode/
+
+### My SQL Host Data ###
+my-sql-data
+mongo-data
+/mysql_keycloak_data/
+/postgres/
+/postgres-inventory/
+/postgres-order/
+/grafana/

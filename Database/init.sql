@@ -1,0 +1,6 @@
+CREATE DATABASE IF NOT EXISTS cartify_auth_db;
+CREATE DATABASE IF NOT EXISTS cartify_user_db;
+CREATE DATABASE IF NOT EXISTS cartify_product_db;
+CREATE DATABASE IF NOT EXISTS cartify_cart_db;
+CREATE DATABASE IF NOT EXISTS cartify_order_db;
+CREATE DATABASE IF NOT EXISTS cartify_payment_db;
